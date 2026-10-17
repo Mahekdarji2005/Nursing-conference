@@ -46,11 +46,6 @@ export default function VideoHero({ initialVideoSrc = '/youtube-video.mp4' }: Vi
       <div className="hero-editorial-grid">
         {/* Left Column: Conference Typography, Details & Controls */}
         <div className="hero-left-col">
-          {/* Eyebrow with leading thin dash */}
-          <div className="hero-eyebrow">
-            <span className="eyebrow-dash">&mdash;</span>
-            <span>18 &ndash; 19 FEBRUARY 2027 &middot; PARUL UNIVERSITY, VADODARA</span>
-          </div>
 
           {/* Giant Title: PU – स्वास्थ्य NOVA 2027 */}
           <h1 className="hero-main-title">
@@ -64,11 +59,19 @@ export default function VideoHero({ initialVideoSrc = '/youtube-video.mp4' }: Vi
             Smart Nursing and Healthcare Innovation
           </h2>
 
-          {/* Theme description */}
-          <p className="hero-theme-desc">
-            Advancing Predictive, Critical and Personalised Care Through<br className="desktop-break" />
-            AI, Digital Technologies and Nursing-Led Multidisciplinary Innovation
-          </p>
+
+          {/* Register Now & Call for Papers Buttons */}
+          <div className="hero-cta-row">
+            <Link href="/registration" className="btn-register-now">
+              <span>REGISTER NOW</span>
+              <span className="btn-chevron" aria-hidden="true">&rsaquo;</span>
+            </Link>
+
+            <Link href="/call-for-papers" className="btn-call-papers">
+              <span>CALL FOR PAPERS</span>
+              <span className="btn-chevron" aria-hidden="true">&rsaquo;</span>
+            </Link>
+          </div>
 
           {/* Four Official UN SDG Badges Row */}
           <div className="hero-sdg-row" aria-label="Official Aligned UN Sustainable Development Goals">
@@ -90,18 +93,6 @@ export default function VideoHero({ initialVideoSrc = '/youtube-video.mp4' }: Vi
             ))}
           </div>
 
-          {/* Action Buttons Row */}
-          <div className="hero-actions-row">
-            <Link href="/about" className="btn-explore">
-              <span>EXPLORE CONFERENCE</span>
-              <span className="btn-chevron" aria-hidden="true">&rsaquo;</span>
-            </Link>
-
-            <Link href="/tracks" className="btn-tracks">
-              <span>SCIENTIFIC TRACKS</span>
-              <span className="btn-chevron" aria-hidden="true">&rsaquo;</span>
-            </Link>
-          </div>
         </div>
 
         {/* Right Column: Asymmetrical Healthcare Media & Video Composition */}
