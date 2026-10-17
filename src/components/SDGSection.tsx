@@ -87,7 +87,7 @@ export default function SDGSection({ compact = false }: SDGSectionProps) {
         <span className="section-eyebrow">UN Agenda 2030 Alignment</span>
         <h2 className="section-title">Official Sustainable Development Goals</h2>
         <p className="section-subtitle">
-          PU – स्वास्थ्य NOVA 2027 directly aligns its scientific tracks, clinical workshops, and research presentations with four official United Nations Sustainable Development Goals.
+          PU’s Criticonn directly aligns its scientific tracks, clinical workshops, and research presentations with four official United Nations Sustainable Development Goals.
         </p>
       </div>
 

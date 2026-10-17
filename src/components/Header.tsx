@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 export default function Header() {
@@ -20,18 +21,56 @@ export default function Header() {
     { label: 'Tracks', href: '/tracks' },
     { label: 'Call for Papers', href: '/call-for-papers' },
     { label: 'Schedule', href: '/programme' },
-    { label: 'Awards', href: '/awards-sponsorship' },
+    { label: 'Awards', href: '/awards' },
+    { label: 'Sponsorship', href: '/sponsorship' },
     { label: 'Venue', href: '/venue-contact' },
   ];
 
   return (
     <header className="header-wrapper">
       <div className="navbar-bar">
-        {/* Brand Name */}
-        <Link href="/" className="navbar-brand" onClick={() => setMobileMenuOpen(false)}>
-          <span className="navbar-brand-pu">PU</span>
-          <span className="navbar-brand-divider">|</span>
-          <span className="navbar-brand-nova">स्वास्थ्य NOVA <span className="navbar-brand-year">2027</span></span>
+        {/* Official Brand Logos */}
+        <Link href="/" className="navbar-brand" onClick={() => setMobileMenuOpen(false)} aria-label="PU’s Criticonn Home" style={{ gap: '0.75rem' }}>
+          <Image
+            src="/Criticonn_Logo.png"
+            alt="PU’s Criticonn"
+            width={987}
+            height={313}
+            priority
+            style={{
+              height: '36px',
+              width: 'auto',
+              maxWidth: '150px',
+              objectFit: 'contain',
+              display: 'block',
+            }}
+          />
+          <span
+            className="navbar-logo-divider"
+            aria-hidden="true"
+            style={{
+              width: '1.5px',
+              height: '22px',
+              backgroundColor: 'rgba(14, 59, 56, 0.28)',
+              borderRadius: '1px',
+              flexShrink: 0,
+              display: 'inline-block',
+            }}
+          />
+          <Image
+            src="/Parul_University_Logo.png"
+            alt="Parul University"
+            width={2170}
+            height={725}
+            priority
+            style={{
+              height: '32px',
+              width: 'auto',
+              maxWidth: '140px',
+              objectFit: 'contain',
+              display: 'block',
+            }}
+          />
         </Link>
 
         {/* Navigation Links */}

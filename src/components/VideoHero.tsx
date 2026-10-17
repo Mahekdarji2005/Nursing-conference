@@ -47,10 +47,9 @@ export default function VideoHero({ initialVideoSrc = '/youtube-video.mp4' }: Vi
         {/* Left Column: Conference Typography, Details & Controls */}
         <div className="hero-left-col">
 
-          {/* Giant Title: PU – स्वास्थ्य NOVA 2027 */}
+          {/* Conference Title */}
           <h1 className="hero-main-title">
-            PU – <span className="hero-title-hindi">स्वास्थ्य</span><br />
-            <span className="nova-word">NOVA </span><span className="hero-year-highlight">2027</span>
+            PU’s Criticonn <span className="hero-year-highlight">2027</span>
           </h1>
 
           {/* Subtitle */}

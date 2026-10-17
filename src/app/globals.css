@@ -81,19 +81,8 @@ a {
   transition: all 0.2s ease;
 }
 
-/* Full-Screen Layout */
+/* Full-Screen Layout with Shared P.U Gate Campus Background */
 .site-outer-wrapper {
-  background-color: var(--canvas-bg);
-  padding: 0;
-  width: 100%;
-  box-sizing: border-box;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Home / Landing Page Full P.U Gate Background */
-.site-outer-wrapper.home-page {
   background-image: url('/pu-gate.jpg');
   background-size: cover;
   background-position: center top;
@@ -102,9 +91,12 @@ a {
   position: relative;
   min-height: 100vh;
   width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
-.site-outer-wrapper.home-page::before {
+.site-outer-wrapper::before {
   content: '';
   position: fixed;
   inset: 0;
@@ -114,7 +106,7 @@ a {
 }
 
 .site-frame {
-  background-color: var(--canvas-bg);
+  background-color: transparent;
   border: none;
   border-radius: 0;
   box-shadow: none;
@@ -124,22 +116,10 @@ a {
   flex-direction: column;
   position: relative;
   overflow: hidden;
-}
-
-.home-page .site-frame {
-  background-color: transparent;
-  position: relative;
   z-index: 1;
 }
 
 .frame-content {
-  flex: 1 0 auto;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.home-page .frame-content {
   position: relative;
   width: 100%;
   flex: 1 0 auto;
@@ -335,6 +315,18 @@ a {
     margin-left: auto;
   }
 }
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  .navbar-link {
+    padding: 0.4rem 0.52rem;
+    font-size: 0.78rem;
+  }
+  .navbar-register-btn {
+    padding: 0.5rem 1.1rem;
+    font-size: 0.78rem;
+  }
+}
+
 
 /* Hero Section & Editorial Grid */
 .hero-section-container {
@@ -1337,3 +1329,51 @@ a {
     border-radius: 6px;
   }
 }
+
+/* 3D Flip Price Card Animation System */
+.flip-card-container {
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+.flip-card-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.flip-card-front {
+  transform: rotateY(0deg);
+  z-index: 2;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  z-index: 1;
+}
+

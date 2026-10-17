@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -24,21 +25,23 @@ export default function Footer() {
         >
           {/* Col 1: Conference Title & Theme */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1rem' }}>
-              <span
-                style={{
-                  background: 'var(--orange-500)',
-                  color: 'white',
-                  fontWeight: '800',
-                  fontSize: '0.85rem',
-                  padding: '0.25rem 0.65rem',
-                  borderRadius: '9999px',
-                }}
-              >
-                PU
-              </span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', marginBottom: '1rem' }}>
+              <div style={{ maxWidth: '190px' }}>
+                <Image
+                  src="/Criticonn_Logo.png"
+                  alt="PU’s Criticonn"
+                  width={987}
+                  height={313}
+                  style={{
+                    height: '44px',
+                    width: 'auto',
+                    objectFit: 'contain',
+                    display: 'block',
+                  }}
+                />
+              </div>
               <span style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', color: '#FFFFFF', fontWeight: '700' }}>
-                PU – स्वास्थ्य NOVA 2027
+                PU’s Criticonn 2027
               </span>
             </div>
             <p style={{ fontSize: '0.88rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.75)', marginBottom: '1.2rem' }}>
@@ -72,7 +75,8 @@ export default function Footer() {
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.55rem', fontSize: '0.85rem' }}>
               <li><Link href="/call-for-papers" style={{ color: 'rgba(255,255,255,0.8)' }}>Call for Abstracts & Format</Link></li>
               <li><Link href="/registration" style={{ color: 'rgba(255,255,255,0.8)' }}>Registration Fees & Matrix</Link></li>
-              <li><Link href="/awards-sponsorship" style={{ color: 'rgba(255,255,255,0.8)' }}>Cash Awards & Sponsors</Link></li>
+              <li><Link href="/awards" style={{ color: 'rgba(255,255,255,0.8)' }}>Scientific Awards</Link></li>
+              <li><Link href="/sponsorship" style={{ color: 'rgba(255,255,255,0.8)' }}>Sponsorship Packages</Link></li>
               <li><Link href="/venue-contact" style={{ color: 'rgba(255,255,255,0.8)' }}>Venue Directions & Secretariat</Link></li>
             </ul>
           </div>
@@ -110,10 +114,42 @@ export default function Footer() {
             color: 'rgba(255, 255, 255, 0.55)',
           }}
         >
-          <p>
-            &copy; 2027 Parul University & Faculty of Nursing. All Rights Reserved.
-          </p>
-          <div style={{ display: 'flex', gap: '1.5rem' }}>
+          <div>
+            <p style={{ marginBottom: '0.35rem' }}>
+              &copy; 2027 Parul University &amp; Faculty of Nursing. All Rights Reserved.
+            </p>
+            <p style={{ color: 'rgba(255, 255, 255, 0.75)' }}>
+              Designed and Developed by{' '}
+              <a
+                href="https://www.linkedin.com/in/mahek-darji-521651303/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: 'var(--orange-400)',
+                  fontWeight: '600',
+                  textDecoration: 'underline',
+                  textUnderlineOffset: '3px',
+                }}
+              >
+                Mahek Darji
+              </a>{' '}
+              and{' '}
+              <a
+                href="https://www.linkedin.com/in/nipun-kulshrestha-816604288/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: 'var(--orange-400)',
+                  fontWeight: '600',
+                  textDecoration: 'underline',
+                  textUnderlineOffset: '3px',
+                }}
+              >
+                Nipun Kulshrestha
+              </a>
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
             <span>NAAC A++ Grade</span>
             <span>UGC Category-1 Autonomous</span>
             <span>Top 50 NIRF Innovation</span>

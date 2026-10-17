@@ -27,7 +27,7 @@ export default function AboutPage() {
         {/* Header Breadcrumb Banner */}
         <div className="section-headline-group" style={{ marginBottom: '3.5rem' }}>
           <span className="section-eyebrow">Institutional Background &amp; Vision</span>
-          <h1 className="section-title">About PU – स्वास्थ्य NOVA 2027</h1>
+          <h1 className="section-title">About PU’s Criticonn</h1>
           <p className="section-subtitle">
             An international platform advancing predictive, critical, and personalised healthcare through nursing-led digital innovation and interdisciplinary excellence.
           </p>
@@ -149,10 +149,7 @@ export default function AboutPage() {
         {/* Objectives Section: Conference & Pre-Conference Workshop */}
         <section
           style={{
-            background: 'var(--canvas-cream)',
-            borderRadius: '28px',
-            padding: '3.5rem 2.5rem',
-            border: '1.5px solid var(--border-subtle)',
+            background: 'transparent',
             marginBottom: '3.5rem',
           }}
         >

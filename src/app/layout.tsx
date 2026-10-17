@@ -8,14 +8,15 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "PU – स्वास्थ्य NOVA 2027 | Smart Nursing & Healthcare Innovation",
-  description: "International Conference on Smart Nursing and Healthcare Innovation. Advancing Predictive, Critical and Personalised Care Through AI, Digital Technologies and Nursing-Led Multidisciplinary Innovation. 18–19 February 2027, Parul University, Vadodara, Gujarat, India.",
+  title: "PU’s Criticonn 2027 | International Nursing Conference",
+  description: "PU’s Criticonn 2027 – International Conference on Smart Nursing and Healthcare Innovation. Advancing Predictive, Critical and Personalised Care Through AI, Digital Technologies and Nursing-Led Multidisciplinary Innovation. 18–19 February 2027, Parul University, Vadodara, Gujarat, India.",
   keywords: [
+    "PU’s Criticonn",
+    "Criticonn 2027",
+    "Criticonn",
     "Smart Nursing",
     "Healthcare Innovation",
     "Parul University",
-    "PU NOVA 2027",
-    "Swasthya Nova 2027",
     "Critical Care AI",
     "Digital Health",
     "IoMT",

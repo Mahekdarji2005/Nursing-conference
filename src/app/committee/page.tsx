@@ -120,7 +120,7 @@ export default function CommitteePage() {
           <span className="section-eyebrow">Institutional Governance</span>
           <h1 className="section-title">Conference Committee &amp; Leadership</h1>
           <p className="section-subtitle">
-            Distinguished university leadership, visionary patrons, and academic convenors guiding PU – स्वास्थ्य NOVA 2027 towards excellence in smart nursing innovation.
+            Distinguished university leadership, visionary patrons, and academic convenors guiding PU’s Criticonn towards excellence in smart nursing innovation.
           </p>
         </div>
 

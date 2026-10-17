@@ -39,7 +39,7 @@ export default function ProgrammePage() {
     {
       time: '11:15 AM – 12:15 PM',
       title: 'WORKSHOP III — Smart Monitoring in Critical Care Nursing: Real-Time Data to Early Recognition and Timely Intervention',
-      lead: 'Prof. Dr. Anil Sharma (MTIN, CHARUSAT) & Harikrishnan Ramachandran (SIT Pune)',
+      lead: 'Dr. Judie Arulappan (Sultan Qaboos University, Oman) & Harikrishnan Ramachandran (SIT Pune)',
       desc: 'Wearables, telemetry, IoT sensors, smart alarm optimization; interpreting clinical trends and early deterioration signals.',
       type: 'workshop',
     },
@@ -60,7 +60,7 @@ export default function ProgrammePage() {
     {
       time: '02:00 – 03:30 PM',
       title: 'WORKSHOP V — Human-Technology Integration: Smart Healthcare with Nursing and Clinical Judgment',
-      lead: 'Prof. Wang Wenru (National University of Singapore) & Dr. Sukhpal Kaur (NINE, PGIMER Chandigarh)',
+      lead: 'Dr. Gerald Amandu (Sultan Qaboos University, Oman) & Dr. Sukhpal Kaur (NINE, PGIMER Chandigarh)',
       desc: 'Interactive high-fidelity simulation balancing patient assessment, clinical intuition, real-time telemetry, and automated alerts.',
       type: 'workshop',
     },
@@ -92,7 +92,7 @@ export default function ProgrammePage() {
     {
       time: '09:00 – 09:45 AM',
       title: 'Scientific Session 01: The Digital Heart — Advancing Nursing Research and Evidence for Early Detection & Personalized Cardiovascular Care',
-      speakers: 'Prof. Wang Wenru (Alice Lee Centre for Nursing Studies, NUS, Singapore)',
+      speakers: 'Dr. Judie Arulappan (Sultan Qaboos University, Sultanate of Oman)',
       chair: 'Session Chair: Dr. Hemant Kumar Patadia (Principal, PIAHS, Parul University)',
       desc: 'Keynote exploration of AI in telemetry, cardiac risk prediction, and nurse-led preventive management.',
       type: 'keynote',
@@ -172,7 +172,7 @@ export default function ProgrammePage() {
     {
       time: '03:00 – 03:45 PM',
       title: 'Scientific Session 07: Ageing Smarter — Digital Innovation and Nursing Evidence for Healthy, Independent and Person-Centred Ageing',
-      speakers: 'Prof. Dr. Miyuki Ishibashi (Vice Dean, Graduate School of Nursing, Chiba University, Japan)',
+      speakers: 'Mr. Shivaprasad Anagi (Nurse Practitioner & PhD Scholar, Flinders University, Australia)',
       chair: 'Session Chair: Dr. Siddaram Sarate (Principal, College of Nursing, CVM University)',
       desc: 'Geriatric assistive robotics, dementia cognitive sensors, and independent ageing technologies.',
       type: 'session',

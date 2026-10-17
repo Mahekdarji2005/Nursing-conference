@@ -4,7 +4,7 @@ import PageFrame from '@/components/PageFrame';
 
 export default function CallForPapersPage() {
   const timeline = [
-    { date: '10 October 2026', title: 'Call for Abstracts & Papers Opens', badge: 'Active' },
+    { date: '15 October 2026', title: 'Call for Abstracts & Full Papers Opens', badge: 'Active' },
     { date: '15 November 2026', title: 'Abstract Submission Deadline', badge: 'Submission' },
     { date: '30 November 2026', title: 'Notification of Abstract Acceptance', badge: 'Review' },
     { date: '10 December 2026', title: 'Early-Bird / Author Registration Deadline', badge: 'Registration' },
@@ -16,11 +16,11 @@ export default function CallForPapersPage() {
 
   const guidelines = [
     { label: 'Word Limit', desc: 'Abstract text must not exceed 250 words (excluding title, author names, and keywords).' },
-    { label: 'Similarity / Plagiarism', desc: 'Similarity index must strictly remain below 10% (including responsible AI tool disclosure).' },
-    { label: 'Mode of Presentation', desc: 'Offline / In-Person oral paper presentation or scientific poster display at Parul University.' },
-    { label: 'Submission Tracks', desc: 'Must specify one of the 10 official scientific thematic tracks.' },
-    { label: 'Originality & Integrity', desc: 'Must represent unpublished, original scholarly work free from duplicate submissions.' },
-    { label: 'Mandatory Registration', desc: 'Conference registration is required for presenting authors upon abstract acceptance.' },
+    { label: 'Similarity & AI Disclosure', desc: 'Similarity index should preferably be below 10%. Authors are responsible for ensuring originality and disclosing any responsible use of AI-assisted tools.' },
+    { label: 'Mode of Presentation', desc: 'Offline / In-Person Oral Paper Presentation or Scientific Poster Display at Parul University.' },
+    { label: 'Submission Categories', desc: 'Abstracts may be submitted under: (1) Original / Empirical Research, (2) Systematic / Scoping / Narrative Reviews, or (3) AI / Innovation / Technology-Based Studies.' },
+    { label: 'Required Author Details', desc: 'Must include presenting author, corresponding author, all co-authors, designations, institutional affiliations, official email IDs, phone numbers, and designated track.' },
+    { label: 'Mandatory Registration', desc: 'Conference registration is mandatory for all presenting authors and co-authors upon acceptance.' },
   ];
 
   const formatSections = [
@@ -79,7 +79,7 @@ export default function CallForPapersPage() {
 
           <div style={{ display: 'flex', gap: '0.8rem' }}>
             <a
-              href="mailto:criticonn@paruluniversity.ac.in?subject=PU-NOVA%202027%20Abstract%20Submission"
+              href="mailto:criticonn@paruluniversity.ac.in?subject=PU%20Criticonn%202027%20Abstract%20Submission"
               className="btn-pill-orange"
             >
               Email Abstract Draft &rarr;
@@ -239,7 +239,7 @@ export default function CallForPapersPage() {
         {/* Contact Scientific Queries */}
         <div style={{ textAlign: 'center' }}>
           <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-            Have queries regarding abstract tracks or formatting? Contact <strong>Dr. Abhya Pattan</strong> (+91 98444 38332) or <strong>Prof. T. Kiranmala Chanu</strong> (+91 99975 31367).
+            Have queries regarding abstract tracks or formatting? Contact <strong>Prof. T. Kiranmala Chanu</strong> (+91 99975 31367), <strong>Dr. Abhya Pattan</strong> (+91 98444 38332), or <strong>Dr. Roma Patel</strong> (+91 81601 27238).
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/tracks" className="btn-pill-primary">
