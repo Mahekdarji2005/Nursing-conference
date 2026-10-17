@@ -23,7 +23,8 @@ export default function Header() {
     { label: 'Schedule', href: '/programme' },
     { label: 'Awards', href: '/awards' },
     { label: 'Sponsorship', href: '/sponsorship' },
-    { label: 'Venue', href: '/venue-contact' },
+    { label: 'Venue', href: '/venue' },
+    { label: 'Contact', href: '/contact' },
   ];
 
   return (

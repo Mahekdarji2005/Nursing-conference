@@ -196,7 +196,7 @@ export default function SponsorshipPage() {
           </div>
 
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/venue-contact" className="btn-pill-primary">
+            <Link href="/contact" className="btn-pill-primary">
               View All Secretariat Contacts &rarr;
             </Link>
             <Link href="/registration" className="btn-pill-outline">

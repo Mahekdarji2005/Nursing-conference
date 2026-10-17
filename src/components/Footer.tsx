@@ -76,8 +76,8 @@ export default function Footer() {
               <li><Link href="/call-for-papers" style={{ color: 'rgba(255,255,255,0.8)' }}>Call for Abstracts & Format</Link></li>
               <li><Link href="/registration" style={{ color: 'rgba(255,255,255,0.8)' }}>Registration Fees & Matrix</Link></li>
               <li><Link href="/awards" style={{ color: 'rgba(255,255,255,0.8)' }}>Scientific Awards</Link></li>
-              <li><Link href="/sponsorship" style={{ color: 'rgba(255,255,255,0.8)' }}>Sponsorship Packages</Link></li>
-              <li><Link href="/venue-contact" style={{ color: 'rgba(255,255,255,0.8)' }}>Venue Directions & Secretariat</Link></li>
+              <li><Link href="/venue" style={{ color: 'rgba(255,255,255,0.8)' }}>Venue &amp; Directions</Link></li>
+              <li><Link href="/contact" style={{ color: 'rgba(255,255,255,0.8)' }}>Secretariat &amp; Contact</Link></li>
             </ul>
           </div>
 

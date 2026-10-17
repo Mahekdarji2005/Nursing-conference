@@ -83,6 +83,8 @@ export default function CommitteePage() {
       contact: 'dean.pin@paruluniversity.ac.in',
       phone: '+91 96655 39533',
       tag: 'CHAIRPERSON',
+      image: '/images/committee/seeta-devi.jpg',
+      objectPosition: 'center 15%',
     },
     {
       name: 'Dr. Devraj Singh Chouhan',
@@ -92,6 +94,8 @@ export default function CommitteePage() {
       contact: 'criticonn@paruluniversity.ac.in',
       phone: null,
       tag: 'CO-CONVENOR',
+      image: '/images/committee/devraj-chouhan.jpg',
+      objectPosition: 'center 20%',
     },
     {
       name: 'Prof. Takhellambam Kiranmala Chanu',
@@ -101,6 +105,9 @@ export default function CommitteePage() {
       contact: 'criticonn@paruluniversity.ac.in',
       phone: '+91 99975 31367',
       tag: 'CO-CONVENOR',
+      image: '/images/committee/kiranmala-chanu.jpg',
+      objectPosition: 'center 12%',
+      scale: 1.15,
     },
     {
       name: 'Dr. Swapnil Rahane',
@@ -110,6 +117,8 @@ export default function CommitteePage() {
       contact: 'swapnil.rahane19680@paruluniversity.ac.in',
       phone: '+91 95112 39601',
       tag: 'ORGANIZING SECRETARY',
+      image: '/images/committee/swapnil-rahane.jpg',
+      objectPosition: 'center 10%',
     },
   ];
 
@@ -326,10 +335,8 @@ export default function CommitteePage() {
         {/* Conference Leadership & Organizing Convenors */}
         <section
           style={{
-            background: 'var(--canvas-cream)',
-            borderRadius: '28px',
-            padding: '3.5rem 2.5rem',
-            border: '1.5px solid var(--border-subtle)',
+            background: 'transparent',
+            marginBottom: '3.5rem',
           }}
         >
           <div className="section-headline-group" style={{ marginBottom: '2.5rem' }}>
@@ -343,7 +350,7 @@ export default function CommitteePage() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
               gap: '1.8rem',
             }}
           >
@@ -356,29 +363,62 @@ export default function CommitteePage() {
                   padding: '2rem 1.6rem',
                   display: 'flex',
                   flexDirection: 'column',
-                  borderLeft: '5px solid var(--teal-900)',
+                  borderLeft: org.tag === 'CHAIRPERSON' ? '5px solid var(--orange-500)' : '5px solid var(--teal-900)',
                 }}
               >
-                <span
-                  style={{
-                    alignSelf: 'flex-start',
-                    fontSize: '0.7rem',
-                    fontWeight: '800',
-                    background: org.tag === 'CHAIRPERSON' ? 'var(--orange-500)' : 'var(--teal-900)',
-                    color: '#FFFFFF',
-                    padding: '0.25rem 0.7rem',
-                    borderRadius: '9999px',
-                    marginBottom: '0.8rem',
-                  }}
-                >
-                  {org.tag}
-                </span>
-                <h3 style={{ fontSize: '1.25rem', color: 'var(--teal-900)', marginBottom: '0.3rem' }}>
-                  {org.name}
-                </h3>
-                <p style={{ fontSize: '0.88rem', fontWeight: '700', color: 'var(--teal-700)', marginBottom: '0.4rem' }}>
-                  {org.title}
-                </p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', marginBottom: '1.2rem' }}>
+                  <div
+                    style={{
+                      width: '90px',
+                      height: '90px',
+                      borderRadius: '50%',
+                      overflow: 'hidden',
+                      border: org.tag === 'CHAIRPERSON' ? '3.5px solid var(--orange-500)' : '3.5px solid var(--teal-700)',
+                      boxShadow: '0 6px 16px rgba(16, 102, 102, 0.16)',
+                      background: 'var(--canvas-cream)',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Image
+                      src={org.image}
+                      alt={org.name}
+                      width={90}
+                      height={90}
+                      className="person-profile-img"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: org.objectPosition || 'center 20%',
+                        transform: org.scale ? `scale(${org.scale})` : undefined,
+                        transformOrigin: 'center',
+                      }}
+                    />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        fontSize: '0.68rem',
+                        fontWeight: '800',
+                        background: org.tag === 'CHAIRPERSON' ? 'var(--orange-500)' : 'var(--teal-900)',
+                        color: '#FFFFFF',
+                        padding: '0.2rem 0.65rem',
+                        borderRadius: '9999px',
+                        marginBottom: '0.45rem',
+                      }}
+                    >
+                      {org.tag}
+                    </span>
+                    <h3 style={{ fontSize: '1.18rem', color: 'var(--teal-900)', lineHeight: '1.25', marginBottom: '0.25rem' }}>
+                      {org.name}
+                    </h3>
+                    <p style={{ fontSize: '0.84rem', fontWeight: '700', color: 'var(--teal-700)', lineHeight: '1.3' }}>
+                      {org.title}
+                    </p>
+                  </div>
+                </div>
+
                 <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: '1.5', marginBottom: '1rem', flex: 1 }}>
                   {org.role} &bull; {org.inst}
                 </p>
@@ -407,7 +447,7 @@ export default function CommitteePage() {
           </div>
 
           <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-            <Link href="/venue-contact" className="btn-pill-primary">
+            <Link href="/contact" className="btn-pill-primary">
               Contact Conference Secretariat &rarr;
             </Link>
           </div>

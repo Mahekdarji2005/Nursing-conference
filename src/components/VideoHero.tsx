@@ -1,29 +1,59 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import BottomInfoStrip from './BottomInfoStrip';
+
+// Curated high-impact photographs across 2022, 2023, and 2025 conferences
+const heroSlides = [
+  {
+    src: '/Criticonn/CRITICONN%202025/487460471_18265391038287233_611666445073273001_n.jpg',
+    alt: 'Criticonn 2025 Conference Session and Clinical Presentations',
+    year: '2025',
+  },
+  {
+    src: '/Criticonn/CRITICONN%202023/502621122_10236349050336682_3343089732830590402_n.jpg',
+    alt: 'Criticonn 2023 Hands-on Nursing Workshop and Clinical Demonstration',
+    year: '2023',
+  },
+  {
+    src: '/Criticonn/CRITICONN%202025/513896146_23936626809334739_6216725993203791852_n.jpg',
+    alt: 'Criticonn 2025 Keynote Gathering and Healthcare Innovation Discussions',
+    year: '2025',
+  },
+  {
+    src: '/Criticonn/CRITICONN%202022/474750408_1123319286472014_3392048648854985544_n.jpg',
+    alt: 'Criticonn 2022 Dignitaries and Inaugural Ceremony',
+    year: '2022',
+  },
+  {
+    src: '/Criticonn/CRITICONN%202025/488258514_18265391029287233_7619539916465985248_n.jpg',
+    alt: 'Criticonn 2025 Academic Deliberations and Delegate Interaction',
+    year: '2025',
+  },
+  {
+    src: '/Criticonn/CRITICONN%202023/503053301_10236349052936747_8080001445345422557_n.jpg',
+    alt: 'Criticonn 2023 Interactive Healthcare Delegate Discussions',
+    year: '2023',
+  },
+];
 
 interface VideoHeroProps {
   initialVideoSrc?: string | null;
 }
 
-export default function VideoHero({ initialVideoSrc = '/youtube-video.mp4' }: VideoHeroProps) {
-  const [videoSrc] = useState<string | null>(initialVideoSrc);
-  const videoRef = useRef<HTMLVideoElement>(null);
+export default function VideoHero({ initialVideoSrc }: VideoHeroProps) {
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Attempt autoplay muted on mount per browser policy
+  // Automatically cycle through photographs every 4.5 seconds with proper cleanup
   useEffect(() => {
-    if (videoRef.current && videoSrc) {
-      videoRef.current.muted = true;
-      videoRef.current
-        .play()
-        .catch((err) => {
-          console.warn('Autoplay waiting for interaction:', err);
-        });
-    }
-  }, [videoSrc]);
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 4500);
+
+    return () => clearInterval(timer);
+  }, [currentSlide]);
 
   const sdgTiles = [
     { src: '/images/sdg/E_WEB_03.png', alt: 'SDG 3 - Good Health and Well-Being' },
@@ -57,7 +87,6 @@ export default function VideoHero({ initialVideoSrc = '/youtube-video.mp4' }: Vi
             International Conference on<br />
             Smart Nursing and Healthcare Innovation
           </h2>
-
 
           {/* Register Now & Call for Papers Buttons */}
           <div className="hero-cta-row">
@@ -94,27 +123,49 @@ export default function VideoHero({ initialVideoSrc = '/youtube-video.mp4' }: Vi
 
         </div>
 
-        {/* Right Column: Asymmetrical Healthcare Media & Video Composition */}
+        {/* Right Column: Asymmetrical Healthcare Media & Slideshow Composition */}
         <div className="hero-right-col">
           <div className="media-composition-wrapper">
-            {/* Main Upper/Central Video Panel */}
+            {/* Main Upper/Central Curved Panel containing Timed Image Slideshow */}
             <div
-              className="main-video-panel"
+              className="main-video-panel hero-slideshow-panel"
               style={{
                 clipPath: 'url(#hero-curved-video-clip)',
                 WebkitClipPath: 'url(#hero-curved-video-clip)',
               }}
             >
-              <video
-                ref={videoRef}
-                src={videoSrc || '/youtube-video.mp4'}
-                poster="/images/nurse_poster.png"
-                autoPlay
-                playsInline
-                muted
-                loop
-                className="media-fill-video"
-              />
+              {heroSlides.map((slide, idx) => (
+                <div
+                  key={slide.src}
+                  className={`hero-slide-item ${idx === currentSlide ? 'active' : ''}`}
+                  aria-hidden={idx !== currentSlide}
+                >
+                  <Image
+                    src={slide.src}
+                    alt={slide.alt}
+                    fill
+                    priority={idx <= 1}
+                    sizes="(max-width: 1024px) 100vw, 55vw"
+                    style={{
+                      objectFit: 'cover',
+                      objectPosition: 'center',
+                    }}
+                  />
+                </div>
+              ))}
+
+              {/* Subtle Slide Indicators */}
+              <div className="hero-slide-indicators" aria-label="Slideshow Indicators">
+                {heroSlides.map((slide, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setCurrentSlide(idx)}
+                    className={`hero-indicator-dot ${idx === currentSlide ? 'active' : ''}`}
+                    aria-label={`Go to slide ${idx + 1} - Criticonn ${slide.year}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
