@@ -88,6 +88,11 @@ export default function VideoHero({ initialVideoSrc }: VideoHeroProps) {
             Smart Nursing and Healthcare Innovation
           </h2>
 
+          {/* Complete Conference Tagline */}
+          <p className="hero-theme-desc">
+            Advancing Predictive, Critical and Personalised Care Through AI, Digital Technologies and Nursing-Led Multidisciplinary Innovation.
+          </p>
+
           {/* Register Now & Call for Papers Buttons */}
           <div className="hero-cta-row">
             <Link href="/registration" className="btn-register-now">

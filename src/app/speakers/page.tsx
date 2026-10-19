@@ -298,8 +298,8 @@ export default function SpeakersPage() {
             marginBottom: '3rem',
           }}
         >
-          <span className="badge-tag orange">International Keynotes</span>
-          <span className="badge-tag dark">Invited Experts</span>
+          <span className="badge-tag orange">Resource Person</span>
+          <span className="badge-tag dark">Resource Person</span>
           <span className="badge-tag">Workshop Leads</span>
           <span className="badge-tag" style={{ background: 'var(--canvas-cream)', color: 'var(--teal-900)' }}>
             Session Chairpersons
@@ -395,7 +395,9 @@ export default function SpeakersPage() {
                     borderRadius: '9999px',
                   }}
                 >
-                  {spk.category}
+                  {spk.category === 'International Keynote' || spk.category === 'Invited Expert'
+                    ? 'Resource Person'
+                    : spk.category}
                 </span>
               </div>
 

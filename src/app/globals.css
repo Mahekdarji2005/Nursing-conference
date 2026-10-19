@@ -463,10 +463,11 @@ a {
 .hero-theme-desc {
   font-family: var(--font-sans);
   font-size: clamp(0.84rem, 0.98vw, 0.94rem);
-  color: var(--text-body);
+  font-weight: 500;
+  color: #FFFFFF;
   line-height: 1.5;
   max-width: 580px;
-  margin-bottom: clamp(2rem, 4.2vh, 3.6rem);
+  margin-bottom: clamp(1rem, 1.8vh, 1.5rem);
 }
 
 .desktop-break {
