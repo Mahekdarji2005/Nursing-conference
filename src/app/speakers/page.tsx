@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import PageFrame from '@/components/PageFrame';
@@ -19,6 +21,30 @@ export default function SpeakersPage() {
   }
 
   const speakers: SpeakerItem[] = [
+    {
+      name: 'Ms. Viktorija Kielė',
+      category: 'Conference Speaker',
+      designation: 'Lecturer,\nFaculty of Health Care',
+      chair: null,
+      affiliation: 'Vilniaus Kolegija (VIKO), Higher Education Institution\nVilnius, Lithuania, Europe',
+      session: null,
+      workshop: null,
+      initials: 'VK',
+      image: '/images/speakers/processed/viktorija-kiele.jpeg',
+      objectPosition: 'center 20%',
+    },
+    {
+      name: 'Dr. Jurgita Kazlauskienė',
+      category: 'Conference Speaker',
+      designation: 'Vice-Dean (Prodekanė), Faculty of Health Care',
+      chair: null,
+      affiliation: 'Vilnius University of Applied Sciences (VIKO),\nVilnius, Lithuania',
+      session: null,
+      workshop: null,
+      initials: 'JK',
+      image: '/images/speakers/processed/jurgita-kazlauskiene.jpeg',
+      objectPosition: 'center 20%',
+    },
     {
       name: 'Dr. Judie Arulappan',
       category: 'International Keynote',
@@ -277,6 +303,190 @@ export default function SpeakersPage() {
     },
   ];
 
+  const [activeCategory, setActiveCategory] = useState<'all' | 'conference-speaker' | 'resource-person' | 'workshop-leads' | 'session-chairpersons'>('all');
+
+  const filteredSpeakers = activeCategory === 'all'
+    ? speakers
+    : activeCategory === 'conference-speaker'
+    ? speakers.filter(spk => spk.category === 'Conference Speaker')
+    : activeCategory === 'resource-person'
+    ? speakers.filter(spk => spk.category !== 'Conference Speaker' && spk.category !== 'Session Chairperson')
+    : activeCategory === 'workshop-leads'
+    ? speakers.filter(spk => spk.workshop !== null)
+    : speakers.filter(spk => spk.category === 'Session Chairperson');
+
+  // Progressive pyramid rows for remaining speakers under the two conference speakers
+  const remainingSpeakers = speakers.filter(spk => spk.category !== 'Conference Speaker');
+  const rowSizes = [3, 4, 5, 5, 4];
+  const pyramidRows: SpeakerItem[][] = [];
+  let currentIndex = 0;
+  for (const size of rowSizes) {
+    if (currentIndex < remainingSpeakers.length) {
+      pyramidRows.push(remainingSpeakers.slice(currentIndex, currentIndex + size));
+      currentIndex += size;
+    }
+  }
+  if (currentIndex < remainingSpeakers.length) {
+    pyramidRows.push(remainingSpeakers.slice(currentIndex));
+  }
+
+  const renderCard = (spk: SpeakerItem, idx: number, isCompact: boolean = false) => {
+    const isConfSpeaker = spk.category === 'Conference Speaker';
+    return (
+      <div
+        key={`${spk.name}-${idx}`}
+        className="theme-card"
+        style={{
+          background: '#FFFFFF',
+          display: 'flex',
+          flexDirection: 'column',
+          width: isCompact ? '290px' : '300px',
+          maxWidth: '100%',
+          flex: isCompact ? '0 1 290px' : '0 1 300px',
+          padding: isCompact ? '1.5rem 1.3rem 1.4rem' : '2.2rem 1.6rem 1.8rem',
+          borderLeft: isConfSpeaker ? '4px solid var(--orange-500)' : '4px solid var(--teal-700)',
+          boxShadow: isCompact
+            ? '0 6px 20px rgba(234, 88, 12, 0.12)'
+            : '0 8px 24px rgba(11, 37, 38, 0.06)',
+          transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+        }}
+      >
+        {/* Centered Circular Speaker Photograph */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginBottom: isCompact ? '0.85rem' : '1.1rem',
+          }}
+        >
+          <div
+            style={{
+              width: isCompact ? '104px' : '128px',
+              height: isCompact ? '104px' : '128px',
+              borderRadius: '50%',
+              background: spk.image ? 'var(--canvas-cream)' : 'var(--teal-900)',
+              overflow: 'hidden',
+              border: isConfSpeaker ? '3px solid var(--orange-500)' : '3.5px solid var(--teal-600)',
+              boxShadow: isConfSpeaker
+                ? '0 4px 14px rgba(234, 88, 12, 0.2)'
+                : '0 6px 18px rgba(16, 102, 102, 0.16)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative',
+              flexShrink: 0,
+            }}
+          >
+            {spk.image ? (
+              <Image
+                src={spk.image}
+                alt={spk.name}
+                width={isCompact ? 104 : 128}
+                height={isCompact ? 104 : 128}
+                className="person-profile-img"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: (spk.image.endsWith('.jpg') || spk.image.endsWith('.jpeg')) ? 'cover' : 'contain',
+                  objectPosition: spk.objectPosition || 'center 20%',
+                  transform: spk.scale ? `scale(${spk.scale})` : undefined,
+                  display: 'block',
+                }}
+              />
+            ) : (
+              <span
+                style={{
+                  color: '#FFFFFF',
+                  fontSize: isCompact ? '1.5rem' : '1.85rem',
+                  fontWeight: '800',
+                  letterSpacing: '0.5px',
+                }}
+              >
+                {spk.initials}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Centered Category Badge */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: isCompact ? '0.7rem' : '1rem' }}>
+          <span
+            style={{
+              fontSize: '0.72rem',
+              fontWeight: '800',
+              background: isConfSpeaker
+                ? 'var(--orange-100)'
+                : spk.category === 'Session Chairperson'
+                ? 'var(--canvas-cream)'
+                : 'var(--teal-100)',
+              color: isConfSpeaker
+                ? 'var(--orange-600)'
+                : spk.category === 'Session Chairperson'
+                ? 'var(--teal-900)'
+                : 'var(--teal-800)',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '9999px',
+            }}
+          >
+            {isConfSpeaker
+              ? 'Conference Speaker'
+              : spk.category === 'Session Chairperson'
+              ? 'Session Chairperson'
+              : 'Resource Person'}
+          </span>
+        </div>
+
+        {/* Speaker Details */}
+        <div style={{ textAlign: 'center', marginBottom: isCompact ? 0 : '1.2rem' }}>
+          <h3 style={{ fontSize: isCompact ? '1.15rem' : '1.25rem', color: 'var(--teal-900)', marginBottom: '0.3rem' }}>
+            {spk.name}
+          </h3>
+          <p style={{ fontSize: isCompact ? '0.84rem' : '0.88rem', fontWeight: '700', color: 'var(--teal-700)', marginBottom: '0.25rem', whiteSpace: 'pre-line' }}>
+            {spk.designation}
+          </p>
+          {spk.chair && (
+            <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '0.4rem', fontWeight: '500', whiteSpace: 'pre-line' }}>
+              {spk.chair}
+            </p>
+          )}
+          <p style={{ fontSize: isCompact ? '0.8rem' : '0.82rem', color: 'var(--text-muted)', marginBottom: 0, lineHeight: '1.4', whiteSpace: 'pre-line' }}>
+            🏛️ {spk.affiliation}
+          </p>
+        </div>
+
+        {/* Session / Workshop Details */}
+        {(spk.session || spk.workshop) && (
+          <div
+            style={{
+              marginTop: 'auto',
+              paddingTop: '0.9rem',
+              borderTop: '1px solid var(--border-subtle)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.4rem',
+              fontSize: '0.8rem',
+              textAlign: 'left',
+            }}
+          >
+            {spk.session && (
+              <div>
+                <strong style={{ color: 'var(--teal-900)', display: 'block' }}>Scientific Session:</strong>
+                <span style={{ color: 'var(--text-body)' }}>{spk.session}</span>
+              </div>
+            )}
+            {spk.workshop && (
+              <div>
+                <strong style={{ color: 'var(--orange-600)', display: 'block' }}>Pre-Conference Workshop:</strong>
+                <span style={{ color: 'var(--text-body)' }}>{spk.workshop}</span>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <PageFrame>
       <div className="content-container" style={{ paddingBottom: '5rem', paddingTop: '1.5rem' }}>
@@ -290,6 +500,8 @@ export default function SpeakersPage() {
 
         {/* Legend / Category Tags */}
         <div
+          role="navigation"
+          aria-label="Speaker category navigation"
           style={{
             display: 'flex',
             justifyContent: 'center',
@@ -298,156 +510,116 @@ export default function SpeakersPage() {
             marginBottom: '3rem',
           }}
         >
-          <span className="badge-tag orange">Resource Person</span>
-          <span className="badge-tag dark">Resource Person</span>
-          <span className="badge-tag">Workshop Leads</span>
-          <span className="badge-tag" style={{ background: 'var(--canvas-cream)', color: 'var(--teal-900)' }}>
+          <button
+            type="button"
+            onClick={() => setActiveCategory(prev => prev === 'conference-speaker' ? 'all' : 'conference-speaker')}
+            className="badge-tag orange"
+            style={{
+              cursor: 'pointer',
+              border: activeCategory === 'conference-speaker' ? '2px solid var(--orange-600)' : '2px solid transparent',
+              outline: 'none',
+              boxShadow: activeCategory === 'conference-speaker' ? '0 4px 12px rgba(234, 88, 12, 0.25)' : 'none',
+              transition: 'all 0.2s ease',
+              font: 'inherit',
+            }}
+          >
+            Conference Speaker
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveCategory(prev => prev === 'resource-person' ? 'all' : 'resource-person')}
+            className="badge-tag dark"
+            style={{
+              cursor: 'pointer',
+              border: activeCategory === 'resource-person' ? '2px solid var(--teal-500)' : '2px solid transparent',
+              outline: 'none',
+              boxShadow: activeCategory === 'resource-person' ? '0 4px 12px rgba(11, 37, 38, 0.25)' : 'none',
+              transition: 'all 0.2s ease',
+              font: 'inherit',
+            }}
+          >
+            Resource Person
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveCategory(prev => prev === 'workshop-leads' ? 'all' : 'workshop-leads')}
+            className="badge-tag"
+            style={{
+              cursor: 'pointer',
+              border: activeCategory === 'workshop-leads' ? '2px solid var(--teal-700)' : '2px solid transparent',
+              outline: 'none',
+              boxShadow: activeCategory === 'workshop-leads' ? '0 4px 12px rgba(16, 102, 102, 0.2)' : 'none',
+              transition: 'all 0.2s ease',
+              font: 'inherit',
+            }}
+          >
+            Workshop Leads
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveCategory(prev => prev === 'session-chairpersons' ? 'all' : 'session-chairpersons')}
+            className="badge-tag"
+            style={{
+              cursor: 'pointer',
+              background: 'var(--canvas-cream)',
+              color: 'var(--teal-900)',
+              border: activeCategory === 'session-chairpersons' ? '2px solid var(--teal-900)' : '2px solid transparent',
+              outline: 'none',
+              boxShadow: activeCategory === 'session-chairpersons' ? '0 4px 12px rgba(16, 102, 102, 0.2)' : 'none',
+              transition: 'all 0.2s ease',
+              font: 'inherit',
+            }}
+          >
             Session Chairpersons
-          </span>
+          </button>
         </div>
 
-        {/* Speakers Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '1.8rem',
-            marginBottom: '3.5rem',
-          }}
-        >
-          {speakers.map((spk, idx) => (
+        {/* Speakers Layout */}
+        {activeCategory === 'all' ? (
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem', marginBottom: '3.5rem', width: '100%' }}>
+            {/* Top Row: Two Centered Conference Speakers */}
             <div
-              key={idx}
-              className="theme-card"
               style={{
-                background: '#FFFFFF',
                 display: 'flex',
-                flexDirection: 'column',
-                padding: '2.2rem 1.6rem 1.8rem',
-                borderLeft: spk.category === 'International Keynote' ? '4px solid var(--orange-500)' : '4px solid var(--teal-700)',
+                justifyContent: 'center',
+                gap: '1.8rem',
+                flexWrap: 'wrap',
+                width: '100%',
               }}
             >
-              {/* Centered Circular Speaker Photograph */}
+              {speakers.filter(s => s.category === 'Conference Speaker').map((spk, idx) => renderCard(spk, idx, true))}
+            </div>
+
+            {/* Progressive Pyramid Rows for Remaining Speakers */}
+            {pyramidRows.map((row, rowIdx) => (
               <div
+                key={rowIdx}
                 style={{
                   display: 'flex',
                   justifyContent: 'center',
-                  alignItems: 'center',
-                  marginBottom: '1.1rem',
+                  gap: '1.8rem',
+                  flexWrap: 'wrap',
+                  width: '100%',
                 }}
               >
-                <div
-                  style={{
-                    width: '128px',
-                    height: '128px',
-                    borderRadius: '50%',
-                    background: spk.image ? 'var(--canvas-cream)' : 'var(--teal-900)',
-                    overflow: 'hidden',
-                    border: spk.category === 'International Keynote' ? '3.5px solid var(--orange-500)' : '3.5px solid var(--teal-600)',
-                    boxShadow: '0 6px 18px rgba(16, 102, 102, 0.16)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    position: 'relative',
-                    flexShrink: 0,
-                  }}
-                >
-                  {spk.image ? (
-                    <Image
-                      src={spk.image}
-                      alt={spk.name}
-                      width={128}
-                      height={128}
-                      className="person-profile-img"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: (spk.image.endsWith('.jpg') || spk.image.endsWith('.jpeg')) ? 'cover' : 'contain',
-                        objectPosition: spk.objectPosition || 'center 20%',
-                        transform: spk.scale ? `scale(${spk.scale})` : undefined,
-                        display: 'block',
-                      }}
-                    />
-                  ) : (
-                    <span
-                      style={{
-                        color: '#FFFFFF',
-                        fontSize: '1.85rem',
-                        fontWeight: '800',
-                        letterSpacing: '0.5px',
-                      }}
-                    >
-                      {spk.initials}
-                    </span>
-                  )}
-                </div>
+                {row.map((spk, idx) => renderCard(spk, idx, false))}
               </div>
-
-              {/* Centered Category Badge */}
-              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
-                <span
-                  style={{
-                    fontSize: '0.72rem',
-                    fontWeight: '800',
-                    background: spk.category === 'International Keynote' ? 'var(--orange-100)' : 'var(--teal-100)',
-                    color: spk.category === 'International Keynote' ? 'var(--orange-600)' : 'var(--teal-800)',
-                    padding: '0.25rem 0.75rem',
-                    borderRadius: '9999px',
-                  }}
-                >
-                  {spk.category === 'International Keynote' || spk.category === 'Invited Expert'
-                    ? 'Resource Person'
-                    : spk.category}
-                </span>
-              </div>
-
-              {/* Speaker Details */}
-              <div style={{ textAlign: 'center', marginBottom: '1.2rem' }}>
-                <h3 style={{ fontSize: '1.25rem', color: 'var(--teal-900)', marginBottom: '0.35rem' }}>
-                  {spk.name}
-                </h3>
-                <p style={{ fontSize: '0.88rem', fontWeight: '700', color: 'var(--teal-700)', marginBottom: '0.25rem' }}>
-                  {spk.designation}
-                </p>
-                {spk.chair && (
-                  <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '0.4rem', fontWeight: '500' }}>
-                    {spk.chair}
-                  </p>
-                )}
-                <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: 0, lineHeight: '1.4' }}>
-                  🏛️ {spk.affiliation}
-                </p>
-              </div>
-
-              {/* Session / Workshop Details */}
-              <div
-                style={{
-                  marginTop: 'auto',
-                  paddingTop: '0.9rem',
-                  borderTop: '1px solid var(--border-subtle)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '0.4rem',
-                  fontSize: '0.8rem',
-                  textAlign: 'left',
-                }}
-              >
-                {spk.session && (
-                  <div>
-                    <strong style={{ color: 'var(--teal-900)', display: 'block' }}>Scientific Session:</strong>
-                    <span style={{ color: 'var(--text-body)' }}>{spk.session}</span>
-                  </div>
-                )}
-                {spk.workshop && (
-                  <div>
-                    <strong style={{ color: 'var(--orange-600)', display: 'block' }}>Pre-Conference Workshop:</strong>
-                    <span style={{ color: 'var(--text-body)' }}>{spk.workshop}</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '1.8rem',
+              flexWrap: 'wrap',
+              marginBottom: '3.5rem',
+              width: '100%',
+            }}
+          >
+            {filteredSpeakers.map((spk, idx) => renderCard(spk, idx, spk.category === 'Conference Speaker'))}
+          </div>
+        )}
 
         {/* CTA Banner */}
         <div style={{ textAlign: 'center' }}>
