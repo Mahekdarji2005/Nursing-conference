@@ -84,7 +84,7 @@ export default function CommitteePage() {
       phone: '+91 96655 39533',
       tag: 'CHAIRPERSON',
       image: '/images/committee/seeta-devi.jpg',
-      objectPosition: 'center 15%',
+      objectPosition: 'center 18%',
     },
     {
       name: 'Dr. Devraj Singh Chouhan',
@@ -106,8 +106,9 @@ export default function CommitteePage() {
       phone: '+91 99975 31367',
       tag: 'CO-CONVENOR',
       image: '/images/committee/kiranmala-chanu.jpg',
-      objectPosition: 'center 12%',
-      scale: 1.15,
+      objectPosition: 'center 20%',
+      scale: 1.95,
+      transformOrigin: '50% 21%',
     },
     {
       name: 'Dr. Swapnil Rahane',
@@ -118,7 +119,7 @@ export default function CommitteePage() {
       phone: '+91 95112 39601',
       tag: 'ORGANIZING SECRETARY',
       image: '/images/committee/swapnil-rahane.jpg',
-      objectPosition: 'center 10%',
+      objectPosition: 'center 8%',
     },
   ];
 
@@ -347,99 +348,102 @@ export default function CommitteePage() {
             </p>
           </div>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '1.8rem',
-            }}
-          >
+          <div className="committee-leadership-grid">
             {organizingLeaders.map((org, idx) => (
               <div
                 key={idx}
                 className="theme-card"
                 style={{
                   background: '#FFFFFF',
-                  padding: '2rem 1.6rem',
+                  padding: '2.2rem 2rem 1.8rem',
                   display: 'flex',
                   flexDirection: 'column',
+                  textAlign: 'center',
                   borderLeft: org.tag === 'CHAIRPERSON' ? '5px solid var(--orange-500)' : '5px solid var(--teal-900)',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', marginBottom: '1.2rem' }}>
-                  <div
+                <div
+                  style={{
+                    width: '120px',
+                    height: '120px',
+                    borderRadius: '50%',
+                    margin: '0 auto 1.25rem',
+                    overflow: 'hidden',
+                    border: org.tag === 'CHAIRPERSON' ? '4px solid var(--orange-500)' : '4px solid var(--teal-700)',
+                    boxShadow: '0 8px 22px rgba(16, 102, 102, 0.18)',
+                    background: 'var(--canvas-cream)',
+                    flexShrink: 0,
+                    position: 'relative',
+                  }}
+                >
+                  <Image
+                    src={org.image}
+                    alt={org.name}
+                    width={120}
+                    height={120}
+                    className="person-profile-img"
                     style={{
-                      width: '90px',
-                      height: '90px',
-                      borderRadius: '50%',
-                      overflow: 'hidden',
-                      border: org.tag === 'CHAIRPERSON' ? '3.5px solid var(--orange-500)' : '3.5px solid var(--teal-700)',
-                      boxShadow: '0 6px 16px rgba(16, 102, 102, 0.16)',
-                      background: 'var(--canvas-cream)',
-                      flexShrink: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: org.objectPosition || 'center 20%',
+                      transform: org.scale ? `scale(${org.scale})` : undefined,
+                      transformOrigin: org.transformOrigin || 'center',
                     }}
-                  >
-                    <Image
-                      src={org.image}
-                      alt={org.name}
-                      width={90}
-                      height={90}
-                      className="person-profile-img"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: org.objectPosition || 'center 20%',
-                        transform: org.scale ? `scale(${org.scale})` : undefined,
-                        transformOrigin: 'center',
-                      }}
-                    />
-                  </div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <span
-                      style={{
-                        display: 'inline-block',
-                        fontSize: '0.68rem',
-                        fontWeight: '800',
-                        background: org.tag === 'CHAIRPERSON' ? 'var(--orange-500)' : 'var(--teal-900)',
-                        color: '#FFFFFF',
-                        padding: '0.2rem 0.65rem',
-                        borderRadius: '9999px',
-                        marginBottom: '0.45rem',
-                      }}
-                    >
-                      {org.tag}
-                    </span>
-                    <h3 style={{ fontSize: '1.18rem', color: 'var(--teal-900)', lineHeight: '1.25', marginBottom: '0.25rem' }}>
-                      {org.name}
-                    </h3>
-                    <p style={{ fontSize: '0.84rem', fontWeight: '700', color: 'var(--teal-700)', lineHeight: '1.3' }}>
-                      {org.title}
-                    </p>
-                  </div>
+                  />
                 </div>
 
-                <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: '1.5', marginBottom: '1rem', flex: 1 }}>
+                <span
+                  className="badge-tag"
+                  style={{
+                    alignSelf: 'center',
+                    fontSize: '0.7rem',
+                    fontWeight: '800',
+                    background: org.tag === 'CHAIRPERSON' ? 'var(--orange-500)' : 'var(--teal-900)',
+                    color: '#FFFFFF',
+                    padding: '0.28rem 0.8rem',
+                    borderRadius: '9999px',
+                    marginBottom: '0.8rem',
+                  }}
+                >
+                  {org.tag}
+                </span>
+
+                <h3 style={{ fontSize: '1.3rem', color: 'var(--teal-900)', marginBottom: '0.35rem', fontWeight: 700 }}>
+                  {org.name}
+                </h3>
+                <p style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--teal-700)', lineHeight: '1.35', marginBottom: '0.75rem' }}>
+                  {org.title}
+                </p>
+
+                <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', lineHeight: '1.5', marginBottom: '1.25rem', flex: 1 }}>
                   {org.role} &bull; {org.inst}
                 </p>
 
                 <div
                   style={{
-                    paddingTop: '0.8rem',
+                    marginTop: 'auto',
+                    paddingTop: '0.9rem',
                     borderTop: '1px solid var(--border-subtle)',
-                    fontSize: '0.8rem',
+                    fontSize: '0.82rem',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '0.3rem',
+                    gap: '0.35rem',
+                    minHeight: '48px',
+                    justifyContent: 'flex-end',
                   }}
                 >
-                  {org.phone && (
+                  {org.phone ? (
                     <span style={{ color: 'var(--text-body)' }}>
                       📞 <strong>Phone:</strong> {org.phone}
                     </span>
+                  ) : (
+                    <span style={{ color: 'var(--text-body)', visibility: 'hidden' }}>
+                      📞 <strong>Phone:</strong> N/A
+                    </span>
                   )}
                   <span style={{ color: 'var(--text-body)' }}>
-                    ✉️ <strong>Email:</strong> <a href={`mailto:${org.contact}`} style={{ color: 'var(--orange-500)' }}>{org.contact}</a>
+                    ✉️ <strong>Email:</strong> <a href={`mailto:${org.contact}`} style={{ color: 'var(--orange-500)', textDecoration: 'none', fontWeight: 600 }}>{org.contact}</a>
                   </span>
                 </div>
               </div>
