@@ -74,7 +74,21 @@ export default function CommitteePage() {
     },
   ];
 
-  const organizingLeaders = [
+  interface OrganizingLeader {
+    name: string;
+    title: string;
+    role: string;
+    inst: string;
+    contact: string;
+    phone: string | null;
+    tag: string;
+    image: string;
+    objectPosition?: string;
+    scale?: number;
+    transformOrigin?: string;
+  }
+
+  const organizingLeaders: OrganizingLeader[] = [
     {
       name: 'Dr. Seeta Devi Penta',
       title: 'Conference Chairperson & Convenor',
@@ -96,19 +110,6 @@ export default function CommitteePage() {
       tag: 'CO-CONVENOR',
       image: '/images/committee/devraj-chouhan.jpg',
       objectPosition: 'center 20%',
-    },
-    {
-      name: 'Prof. Takhellambam Kiranmala Chanu',
-      title: 'Conference Co-Convenor',
-      role: 'Professor, Vice Principal & Head, Dept. of Obstetric & Gynaecological Nursing, PIN',
-      inst: 'Parul University, Vadodara, Gujarat',
-      contact: 'criticonn@paruluniversity.ac.in',
-      phone: '+91 99975 31367',
-      tag: 'CO-CONVENOR',
-      image: '/images/committee/kiranmala-chanu.jpg',
-      objectPosition: 'center 20%',
-      scale: 1.95,
-      transformOrigin: '50% 21%',
     },
     {
       name: 'Dr. Swapnil Rahane',
@@ -352,7 +353,7 @@ export default function CommitteePage() {
             {organizingLeaders.map((org, idx) => (
               <div
                 key={idx}
-                className="theme-card"
+                className={`theme-card ${idx === 2 ? 'committee-card-centered' : ''}`}
                 style={{
                   background: '#FFFFFF',
                   padding: '2.2rem 2rem 1.8rem',

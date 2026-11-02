@@ -1065,10 +1065,20 @@ a {
   width: 100%;
 }
 
+.committee-card-centered {
+  grid-column: 1 / -1;
+  width: calc(50% - 1rem);
+  margin: 0 auto;
+}
+
 @media (max-width: 768px) {
   .committee-leadership-grid {
     grid-template-columns: 1fr;
     max-width: 540px;
+  }
+  .committee-card-centered {
+    grid-column: auto;
+    width: 100%;
   }
 }
 

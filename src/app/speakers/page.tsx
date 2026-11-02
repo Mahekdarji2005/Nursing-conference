@@ -9,6 +9,7 @@ export default function SpeakersPage() {
   interface SpeakerItem {
     name: string;
     category: string;
+    categories?: string[];
     designation: string;
     chair: string | null;
     affiliation: string;
@@ -24,6 +25,7 @@ export default function SpeakersPage() {
     {
       name: 'Ms. Viktorija Kielė',
       category: 'Conference Speaker',
+      categories: ['Conference Speaker'],
       designation: 'Lecturer,\nFaculty of Health Care',
       chair: null,
       affiliation: 'Vilniaus Kolegija (VIKO), Higher Education Institution\nVilnius, Lithuania, Europe',
@@ -36,11 +38,12 @@ export default function SpeakersPage() {
     {
       name: 'Dr. Jurgita Kazlauskienė',
       category: 'Conference Speaker',
-      designation: 'Vice-Dean (Prodekanė), Faculty of Health Care',
+      categories: ['Conference Speaker', 'Workshop Leads'],
+      designation: 'Vice-Dean, Faculty of Health Care',
       chair: null,
       affiliation: 'Vilnius University of Applied Sciences (VIKO),\nVilnius, Lithuania',
       session: null,
-      workshop: null,
+      workshop: 'Workshop I: From Patient Data to Bedside Decisions: Advancing Evidence-Based Nursing and Clinical Care',
       initials: 'JK',
       image: '/images/speakers/processed/jurgita-kazlauskiene.jpeg',
       objectPosition: 'center 20%',
@@ -68,19 +71,6 @@ export default function SpeakersPage() {
       workshop: 'Workshop V: Human-Technology Integration: Smart Healthcare with Nursing and Clinical Judgment',
       initials: 'GA',
       image: '/images/speakers/processed/gerald-amandu.jpg',
-      objectPosition: 'center 15%',
-      scale: 1.05,
-    },
-    {
-      name: 'Mr. Shivaprasad Anagi',
-      category: 'International Keynote',
-      designation: 'Nurse Practitioner & Critical Care Researcher',
-      chair: 'PhD Scholar, Flinders University',
-      affiliation: 'Flinders University, South Australia',
-      session: 'Session 07: Ageing Smarter — Digital Innovation and Nursing Evidence for Healthy, Independent and Person-Centred Ageing',
-      workshop: null,
-      initials: 'SA',
-      image: '/images/speakers/processed/shivaprasad.jpeg',
       objectPosition: 'center 15%',
       scale: 1.05,
     },
@@ -271,7 +261,7 @@ export default function SpeakersPage() {
       designation: 'Principal, College of Nursing',
       chair: 'Session 07 Chairperson',
       affiliation: 'CVM University, Anand, Gujarat, India',
-      session: 'Chairing Session 07: Healthy Ageing (Mr. Shivaprasad Anagi)',
+      session: 'Chairing Session 07: Healthy Ageing (Ms. Viktorija Kielė)',
       workshop: null,
       initials: 'SS',
       image: '/images/speakers/processed/siddaram-sarate.png',
@@ -305,19 +295,24 @@ export default function SpeakersPage() {
 
   const [activeCategory, setActiveCategory] = useState<'all' | 'conference-speaker' | 'resource-person' | 'workshop-leads' | 'session-chairpersons'>('all');
 
+  const hasCategory = (spk: SpeakerItem, cat: string) => {
+    if (spk.categories && spk.categories.includes(cat)) return true;
+    return spk.category === cat;
+  };
+
   const filteredSpeakers = activeCategory === 'all'
     ? speakers
     : activeCategory === 'conference-speaker'
-    ? speakers.filter(spk => spk.category === 'Conference Speaker')
+    ? speakers.filter(spk => hasCategory(spk, 'Conference Speaker'))
     : activeCategory === 'resource-person'
-    ? speakers.filter(spk => spk.category !== 'Conference Speaker' && spk.category !== 'Session Chairperson')
+    ? speakers.filter(spk => hasCategory(spk, 'Resource Person') || (!hasCategory(spk, 'Conference Speaker') && spk.category !== 'Session Chairperson'))
     : activeCategory === 'workshop-leads'
-    ? speakers.filter(spk => spk.workshop !== null)
-    : speakers.filter(spk => spk.category === 'Session Chairperson');
+    ? speakers.filter(spk => hasCategory(spk, 'Workshop Leads') || spk.workshop !== null)
+    : speakers.filter(spk => hasCategory(spk, 'Session Chairperson'));
 
   // Progressive pyramid rows for remaining speakers under the two conference speakers
-  const remainingSpeakers = speakers.filter(spk => spk.category !== 'Conference Speaker');
-  const rowSizes = [3, 4, 5, 5, 4];
+  const remainingSpeakers = speakers.filter(spk => !hasCategory(spk, 'Conference Speaker'));
+  const rowSizes = [3, 4, 4, 4, 3];
   const pyramidRows: SpeakerItem[][] = [];
   let currentIndex = 0;
   for (const size of rowSizes) {
@@ -331,7 +326,7 @@ export default function SpeakersPage() {
   }
 
   const renderCard = (spk: SpeakerItem, idx: number, isCompact: boolean = false) => {
-    const isConfSpeaker = spk.category === 'Conference Speaker';
+    const isConfSpeaker = hasCategory(spk, 'Conference Speaker');
     return (
       <div
         key={`${spk.name}-${idx}`}
@@ -410,31 +405,49 @@ export default function SpeakersPage() {
         </div>
 
         {/* Centered Category Badge */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: isCompact ? '0.7rem' : '1rem' }}>
-          <span
-            style={{
-              fontSize: '0.72rem',
-              fontWeight: '800',
-              background: isConfSpeaker
-                ? 'var(--orange-100)'
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.4rem', flexWrap: 'wrap', marginBottom: isCompact ? '0.7rem' : '1rem' }}>
+          {spk.categories && spk.categories.length > 0 ? (
+            spk.categories.map((cat, cIdx) => (
+              <span
+                key={cIdx}
+                style={{
+                  fontSize: '0.72rem',
+                  fontWeight: '800',
+                  background: cat === 'Conference Speaker' ? 'var(--orange-100)' : 'var(--teal-100)',
+                  color: cat === 'Conference Speaker' ? 'var(--orange-600)' : 'var(--teal-800)',
+                  padding: '0.25rem 0.75rem',
+                  borderRadius: '9999px',
+                }}
+              >
+                {cat}
+              </span>
+            ))
+          ) : (
+            <span
+              style={{
+                fontSize: '0.72rem',
+                fontWeight: '800',
+                background: isConfSpeaker
+                  ? 'var(--orange-100)'
+                  : spk.category === 'Session Chairperson'
+                  ? 'var(--canvas-cream)'
+                  : 'var(--teal-100)',
+                color: isConfSpeaker
+                  ? 'var(--orange-600)'
+                  : spk.category === 'Session Chairperson'
+                  ? 'var(--teal-900)'
+                  : 'var(--teal-800)',
+                padding: '0.25rem 0.75rem',
+                borderRadius: '9999px',
+              }}
+            >
+              {isConfSpeaker
+                ? 'Conference Speaker'
                 : spk.category === 'Session Chairperson'
-                ? 'var(--canvas-cream)'
-                : 'var(--teal-100)',
-              color: isConfSpeaker
-                ? 'var(--orange-600)'
-                : spk.category === 'Session Chairperson'
-                ? 'var(--teal-900)'
-                : 'var(--teal-800)',
-              padding: '0.25rem 0.75rem',
-              borderRadius: '9999px',
-            }}
-          >
-            {isConfSpeaker
-              ? 'Conference Speaker'
-              : spk.category === 'Session Chairperson'
-              ? 'Session Chairperson'
-              : 'Resource Person'}
-          </span>
+                ? 'Session Chairperson'
+                : 'Resource Person'}
+            </span>
+          )}
         </div>
 
         {/* Speaker Details */}
@@ -587,7 +600,7 @@ export default function SpeakersPage() {
                 width: '100%',
               }}
             >
-              {speakers.filter(s => s.category === 'Conference Speaker').map((spk, idx) => renderCard(spk, idx, true))}
+              {speakers.filter(s => hasCategory(s, 'Conference Speaker')).map((spk, idx) => renderCard(spk, idx, true))}
             </div>
 
             {/* Progressive Pyramid Rows for Remaining Speakers */}
@@ -617,7 +630,7 @@ export default function SpeakersPage() {
               width: '100%',
             }}
           >
-            {filteredSpeakers.map((spk, idx) => renderCard(spk, idx, spk.category === 'Conference Speaker'))}
+            {filteredSpeakers.map((spk, idx) => renderCard(spk, idx, hasCategory(spk, 'Conference Speaker')))}
           </div>
         )}
 
